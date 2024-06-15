@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+			<style type="text/css">
+		.cui-comment-text img {
+			max-width: 100% !important;
+		}
+		</style>
+<style>
+	body {
+		font-family:cursive, sans-serif;
+		background-color: #FFFFFF;
+		margin: 0;
+		padding: 0;
+	}
+	.container {
+		max-width: 600px;
+		margin: 50px auto;
+		background-color:	#696969;
+		padding: 20px;
+		border-radius: 10px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		text-align: center;
+	}
+	.header {
+		background-color: 	#A9A9A9;
+		color: white;
+		padding: 10px 0;
+		border-radius: 10px 10px 0 0;
+	}
+	.content {
+		margin: 20px 0;
+	}
+	.footer {
+		margin-top: 20px;
+		font-size: 18px;
+		color: #555;
+	}
+	.rsvp {
+		background-color: #AFEEEE;
+		color: white;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		text-decoration: none;
+		font-size: 18px;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+	<div class="header">
+<head>
+    <title>Kalkulator Luas dan Volume</title>
+    <script>
+        function hitungLuasVolume() {
+            var jariJari = parseFloat(document.getElementById("jariJari").value);
+            var tinggiTabung = parseFloat(document.getElementById("tinggiTabung").value);
+            var tinggiLimas = parseFloat(document.getElementById("tinggiLimas").value);
+            
+            // Menghitung luas alas dan volume tabung
+            var luasAlasTabung = Math.PI * Math.pow(jariJari, 2);
+            var volumeTabung = luasAlasTabung * tinggiTabung;
+            
+            // Menghitung luas alas dan volume bola
+            var luasAlasBola = 4 * Math.PI * Math.pow(jariJari, 2);
+            var volumeBola = (4/3) * Math.PI * Math.pow(jariJari, 3);
+            
+            // Menghitung luas alas dan volume limas segi empat
+            var luasAlasLimas = Math.pow(jariJari, 2);
+            var volumeLimas = (1/3) * luasAlasLimas * tinggiLimas;
+            
+            // Menampilkan hasil perhitungan
+            document.getElementById("hasilTabung").innerHTML = "Luas Alas Tabung: " + luasAlasTabung.toFixed(2) + "<br> Volume Tabung: " + volumeTabung.toFixed(2);
+            document.getElementById("hasilBola").innerHTML = "Luas Alas Bola: " + luasAlasBola.toFixed(2) + "<br> Volume Bola: " + volumeBola.toFixed(2);
+            document.getElementById("hasilLimas").innerHTML = "Luas Alas Limas: " + luasAlasLimas.toFixed(2) + "<br> Volume Limas: " + volumeLimas.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Kalkulator Luas dan Volume</h1>
+    
+    <label for="jariJari">Jari-jari:</label>
+    <input type="number" id="jariJari"><br>
+    
+    <label for="tinggiTabung">Tinggi Tabung:</label>
+    <input type="number" id="tinggiTabung"><br>
+    
+    <label for="tinggiLimas">Tinggi Limas:</label>
+    <input type="number" id="tinggiLimas"><br>
+    
+    <button onclick="hitungLuasVolume()">Hitung</button>
+    
+    <div id="hasilTabung"></div>
+    <div id="hasilBola"></div>
+    <div id="hasilLimas"></div>
+</body>
+</div>
+</div></body>
+</html>
