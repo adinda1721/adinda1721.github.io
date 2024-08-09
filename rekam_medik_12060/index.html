@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-container button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        const users = [
+            { username: 'admin', password: 'password' }
+        ];
+
+        function checkLogin() {
+            const loggedIn = sessionStorage.getItem('loggedIn');
+            if (loggedIn === 'true') {
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('register-form').style.display = 'none';
+                document.getElementById('menu').style.display = 'block';
+                document.getElementById('logout-button').style.display = 'block';
+                document.getElementById('welcome-message').textContent = 'Selamat datang, ' + sessionStorage.getItem('username') + '!';
+            } else {
+                document.getElementById('login-form').style.display = 'block';
+                document.getElementById('register-form').style.display = 'none';
+                document.getElementById('menu').style.display = 'none';
+                document.getElementById('logout-button').style.display = 'none';
+                document.getElementById('welcome-message').textContent = '';
+            }
+        }
+
+        function showRegister() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+        }
+
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            const user = users.find(user => user.username === username && user.password === password);
+            if (user) {
+                sessionStorage.setItem('loggedIn', 'true');
+                sessionStorage.setItem('username', username);
+                checkLogin();
+            } else {
+                alert('Username atau password salah.');
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('loggedIn');
+            sessionStorage.removeItem('username');
+            checkLogin();
+        }
+
+        function register(event) {
+            event.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+
+            users.push({ username, password });
+            alert('Registrasi berhasil. Silakan login.');
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+        window.onload = checkLogin;
+    </script>
+</head>
+<body>
+    <h1 id="welcome-message"></h1>
+
+    <form id="login-form" onsubmit="login(event)">
+        <label for="login-username">Username:</label>
+        <input type="text" id="login-username" name="username" required>
+        <br>
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" name="password" required>
+        <br>
+        <button type="submit">Login</button>
+        <button type="button" onclick="showRegister()">Register</button>
+    </form>
+
+    <form id="register-form" onsubmit="register(event)" style="display:none;">
+        <label for="register-username">Username:</label>
+        <input type="text" id="register-username" name="username" required>
+        <br>
+        <label for="register-password">Password:</label>
+        <input type="password" id="register-password" name="password" required>
+        <br>
+        <button type="submit">Register</button>
+    </form>
+
+    <div id="menu" style="display;">
+        <nav>
+            <ul>
+                <li><a href="dashboard.php">dashboard</a></li>
+            </ul>
+        </nav>
+    </div><br>
+
+    <button id="logout-button" onclick="logout()" style="display:none;">Log Out</button>
+</body>
+</html>
